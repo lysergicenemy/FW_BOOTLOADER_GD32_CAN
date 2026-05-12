@@ -1,0 +1,263 @@
+
+Discarded input sections
+
+ .data          0x00000000        0x0 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ .text          0x00000000        0x0 build/startup_minimal.o
+ .data          0x00000000        0x0 build/startup_minimal.o
+ .bss           0x00000000        0x0 build/startup_minimal.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00000800         xr
+RAM              0x20000000         0x00008000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build/main.o
+LOAD C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+LOAD build/bootloader.o
+LOAD build/gd32f30x_can.o
+LOAD build/gd32f30x_gpio.o
+LOAD build/gd32f30x_rcu.o
+LOAD build/startup_minimal.o
+                0x00000400                        _Min_Stack_Size = 0x400
+                0x20008000                        _estack = 0x20008000
+
+.isr_vector     0x08000000       0x40
+                0x08000000                        . = ALIGN (0x4)
+ *(.isr_vector)
+ .isr_vector    0x08000000       0x40 build/startup_minimal.o
+                0x08000000                g_pfnVectors
+                0x08000040                        . = ALIGN (0x4)
+
+.text           0x08000040      0x6ec
+                0x08000040                        . = ALIGN (0x4)
+ *(.text)
+ .text          0x08000040      0x2b0 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ *(.text*)
+ .text.startup  0x080002f0      0x434 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+                0x080002f0                main
+ .text.Reset_Handler
+                0x08000724        0x6 build/startup_minimal.o
+                0x08000724                Reset_Handler
+ .text.Default_Handler
+                0x0800072a        0x2 build/startup_minimal.o
+                0x0800072a                Default_Handler
+ *(.rodata)
+ *(.rodata*)
+ *(.glue_7)
+ .glue_7        0x0800072c        0x0 linker stubs
+ *(.glue_7t)
+ .glue_7t       0x0800072c        0x0 linker stubs
+ *(.init)
+ *(.fini)
+                0x0800072c                        . = ALIGN (0x4)
+                0x0800072c                        _etext = .
+
+.vfp11_veneer   0x0800072c        0x0
+ .vfp11_veneer  0x0800072c        0x0 linker stubs
+
+.v4_bx          0x0800072c        0x0
+ .v4_bx         0x0800072c        0x0 linker stubs
+
+.iplt           0x0800072c        0x0
+ .iplt          0x0800072c        0x0 build/startup_minimal.o
+
+.rel.dyn        0x0800072c        0x0
+ .rel.iplt      0x0800072c        0x0 build/startup_minimal.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+
+.ARM            0x0800072c        0x0
+                0x0800072c                        __exidx_start = .
+ *(.ARM.exidx*)
+                0x0800072c                        __exidx_end = .
+
+.ARM.attributes
+                0x0800072c       0x2a
+ *(.ARM.attributes)
+ .ARM.attributes
+                0x0800072c       0x2c C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ .ARM.attributes
+                0x08000758       0x21 build/startup_minimal.o
+
+.preinit_array  0x0800072c        0x0
+                [!provide]                        PROVIDE (__preinit_array_start = .)
+ *(.preinit_array*)
+                [!provide]                        PROVIDE (__preinit_array_end = .)
+
+.init_array     0x0800072c        0x0
+                [!provide]                        PROVIDE (__init_array_start = .)
+ *(SORT_BY_NAME(.init_array.*))
+ *(.init_array*)
+                [!provide]                        PROVIDE (__init_array_end = .)
+
+.fini_array     0x0800072c        0x0
+                [!provide]                        PROVIDE (__fini_array_start = .)
+ *(SORT_BY_NAME(.fini_array.*))
+ *(.fini_array*)
+                [!provide]                        PROVIDE (__fini_array_end = .)
+                0x08000779                        _sidata = .
+
+.data           0x20000000        0x0 load address 0x08000779
+                0x20000000                        . = ALIGN (0x4)
+                0x20000000                        _sdata = .
+ *(.data)
+ *(.data*)
+                0x20000000                        . = ALIGN (0x4)
+                0x20000000                        _edata = .
+
+.igot.plt       0x20000000        0x0
+ .igot.plt      0x20000000        0x0 build/startup_minimal.o
+                0x20000000                        . = ALIGN (0x4)
+
+.bss            0x20000000       0x28
+                0x20000000                        _sbss = .
+                0x20000000                        __bss_start__ = _sbss
+ *(.bss)
+ .bss           0x20000000       0x28 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ *(.bss*)
+ *(COMMON)
+                0x20000028                        . = ALIGN (0x4)
+                0x20000028                        _ebss = .
+                0x20000028                        __bss_end__ = _ebss
+                [!provide]                        PROVIDE (end = _ebss)
+                [!provide]                        PROVIDE (_end = _ebss)
+
+._user_heap_stack
+                0x20000028      0x400
+                0x20000028                        . = ALIGN (0x4)
+                0x20000428                        . = (. + _Min_Stack_Size)
+ *fill*         0x20000028      0x400 
+                0x20000428                        . = ALIGN (0x4)
+
+/DISCARD/
+ libc.a(*)
+ libm.a(*)
+ libgcc.a(*)
+OUTPUT(build/bootloader_gd32_can.elf elf32-littlearm)
+LOAD linker stubs
+LOAD D:/toolchain/arm_gcc/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp\libc.a
+LOAD D:/toolchain/arm_gcc/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp\libm.a
+LOAD D:/toolchain/arm_gcc/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp\libgcc.a
+
+.comment        0x00000000       0x44
+ .comment       0x00000000       0x44 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+                                 0x45 (size before relaxing)
+
+Cross Reference Table
+
+Symbol                                            File
+Default_Handler                                   build/startup_minimal.o
+Reset_Handler                                     build/startup_minimal.o
+_estack                                           build/startup_minimal.o
+bootloader_run                                    build/bootloader.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+can1_filter_start_bank                            build/gd32f30x_can.o (symbol from plugin)
+can_debug_freeze_disable                          build/gd32f30x_can.o (symbol from plugin)
+can_debug_freeze_enable                           build/gd32f30x_can.o (symbol from plugin)
+can_deinit                                        build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_error_get                                     build/gd32f30x_can.o (symbol from plugin)
+can_fifo_release                                  build/gd32f30x_can.o (symbol from plugin)
+can_filter_init                                   build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_flag_clear                                    build/gd32f30x_can.o (symbol from plugin)
+can_flag_get                                      build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_init                                          build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_interrupt_disable                             build/gd32f30x_can.o (symbol from plugin)
+can_interrupt_enable                              build/gd32f30x_can.o (symbol from plugin)
+can_interrupt_flag_clear                          build/gd32f30x_can.o (symbol from plugin)
+can_interrupt_flag_get                            build/gd32f30x_can.o (symbol from plugin)
+can_message_receive                               build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_message_transmit                              build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_receive_error_number_get                      build/gd32f30x_can.o (symbol from plugin)
+can_receive_message_length_get                    build/gd32f30x_can.o (symbol from plugin)
+can_struct_para_init                              build/gd32f30x_can.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+can_time_trigger_mode_disable                     build/gd32f30x_can.o (symbol from plugin)
+can_time_trigger_mode_enable                      build/gd32f30x_can.o (symbol from plugin)
+can_transmission_stop                             build/gd32f30x_can.o (symbol from plugin)
+can_transmit_error_number_get                     build/gd32f30x_can.o (symbol from plugin)
+can_transmit_states                               build/gd32f30x_can.o (symbol from plugin)
+can_wakeup                                        build/gd32f30x_can.o (symbol from plugin)
+can_working_mode_set                              build/gd32f30x_can.o (symbol from plugin)
+dbg_periph_enable                                 build/gd32f30x_can.o (symbol from plugin)
+g_pfnVectors                                      build/startup_minimal.o
+gpio_afio_deinit                                  build/gd32f30x_gpio.o (symbol from plugin)
+gpio_bit_reset                                    build/gd32f30x_gpio.o (symbol from plugin)
+gpio_bit_set                                      build/gd32f30x_gpio.o (symbol from plugin)
+gpio_bit_write                                    build/gd32f30x_gpio.o (symbol from plugin)
+gpio_compensation_config                          build/gd32f30x_gpio.o (symbol from plugin)
+gpio_compensation_flag_get                        build/gd32f30x_gpio.o (symbol from plugin)
+gpio_deinit                                       build/gd32f30x_gpio.o (symbol from plugin)
+gpio_event_output_config                          build/gd32f30x_gpio.o (symbol from plugin)
+gpio_event_output_disable                         build/gd32f30x_gpio.o (symbol from plugin)
+gpio_event_output_enable                          build/gd32f30x_gpio.o (symbol from plugin)
+gpio_exti_source_select                           build/gd32f30x_gpio.o (symbol from plugin)
+gpio_init                                         build/gd32f30x_gpio.o (symbol from plugin)
+                                                  build/bootloader.o (symbol from plugin)
+gpio_input_bit_get                                build/gd32f30x_gpio.o (symbol from plugin)
+gpio_input_port_get                               build/gd32f30x_gpio.o (symbol from plugin)
+gpio_output_bit_get                               build/gd32f30x_gpio.o (symbol from plugin)
+gpio_output_port_get                              build/gd32f30x_gpio.o (symbol from plugin)
+gpio_pin_lock                                     build/gd32f30x_gpio.o (symbol from plugin)
+gpio_pin_remap_config                             build/gd32f30x_gpio.o (symbol from plugin)
+gpio_port_write                                   build/gd32f30x_gpio.o (symbol from plugin)
+jump2app                                          build/bootloader.o (symbol from plugin)
+                                                  build/main.o (symbol from plugin)
+main                                              C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+                                                  build/main.o (symbol from plugin)
+                                                  build/startup_minimal.o
+rcu_adc_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_ahb_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_all_reset_flag_clear                          build/gd32f30x_rcu.o (symbol from plugin)
+rcu_apb1_clock_config                             build/gd32f30x_rcu.o (symbol from plugin)
+rcu_apb2_clock_config                             build/gd32f30x_rcu.o (symbol from plugin)
+rcu_bkp_reset_disable                             build/gd32f30x_rcu.o (symbol from plugin)
+rcu_bkp_reset_enable                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_ck48m_clock_config                            build/gd32f30x_rcu.o (symbol from plugin)
+rcu_ckout0_config                                 build/gd32f30x_rcu.o (symbol from plugin)
+rcu_clock_freq_get                                build/gd32f30x_rcu.o (symbol from plugin)
+rcu_deepsleep_voltage_set                         build/gd32f30x_rcu.o (symbol from plugin)
+rcu_deinit                                        build/gd32f30x_rcu.o (symbol from plugin)
+rcu_flag_get                                      build/gd32f30x_rcu.o (symbol from plugin)
+rcu_hxtal_clock_monitor_disable                   build/gd32f30x_rcu.o (symbol from plugin)
+rcu_hxtal_clock_monitor_enable                    build/gd32f30x_rcu.o (symbol from plugin)
+rcu_interrupt_disable                             build/gd32f30x_rcu.o (symbol from plugin)
+rcu_interrupt_enable                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_interrupt_flag_clear                          build/gd32f30x_rcu.o (symbol from plugin)
+rcu_interrupt_flag_get                            build/gd32f30x_rcu.o (symbol from plugin)
+rcu_irc8m_adjust_value_set                        build/gd32f30x_rcu.o (symbol from plugin)
+rcu_lxtal_drive_capability_config                 build/gd32f30x_rcu.o (symbol from plugin)
+rcu_osci_bypass_mode_disable                      build/gd32f30x_rcu.o (symbol from plugin)
+rcu_osci_bypass_mode_enable                       build/gd32f30x_rcu.o (symbol from plugin)
+rcu_osci_off                                      build/gd32f30x_rcu.o (symbol from plugin)
+rcu_osci_on                                       build/gd32f30x_rcu.o (symbol from plugin)
+rcu_osci_stab_wait                                build/gd32f30x_rcu.o (symbol from plugin)
+rcu_periph_clock_disable                          build/gd32f30x_rcu.o (symbol from plugin)
+rcu_periph_clock_enable                           build/gd32f30x_rcu.o (symbol from plugin)
+rcu_periph_clock_sleep_disable                    build/gd32f30x_rcu.o (symbol from plugin)
+rcu_periph_clock_sleep_enable                     build/gd32f30x_rcu.o (symbol from plugin)
+rcu_periph_reset_disable                          build/gd32f30x_rcu.o (symbol from plugin)
+                                                  build/gd32f30x_gpio.o (symbol from plugin)
+                                                  build/gd32f30x_can.o (symbol from plugin)
+rcu_periph_reset_enable                           build/gd32f30x_rcu.o (symbol from plugin)
+                                                  build/gd32f30x_gpio.o (symbol from plugin)
+                                                  build/gd32f30x_can.o (symbol from plugin)
+rcu_pll_config                                    build/gd32f30x_rcu.o (symbol from plugin)
+rcu_pllpresel_config                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_predv0_config                                 build/gd32f30x_rcu.o (symbol from plugin)
+rcu_rtc_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
+rcu_system_clock_source_config                    build/gd32f30x_rcu.o (symbol from plugin)
+rcu_system_clock_source_get                       build/gd32f30x_rcu.o (symbol from plugin)
+rcu_usb_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
+rx_msg                                            build/bootloader.o (symbol from plugin)
+tx_msg                                            build/bootloader.o (symbol from plugin)

@@ -1,0 +1,6 @@
+r
+loadbin build\bootloader_gd32_can.bin, 0x08000000
+verifybin build\bootloader_gd32_can.bin, 0x08000000
+r
+g
+q
