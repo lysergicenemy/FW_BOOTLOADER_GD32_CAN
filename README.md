@@ -103,14 +103,10 @@ JLinkGDBServer -if SWD -device GD32F303CB -speed 4000
    - Global erase only (N = `0xFF` or any value — always erases pages 1–63)
    - XOR checksum for page numbers is parsed but ignored
 
-4. **Go command**
-   - Always jumps to `APP_START_ADDR` (`0x08000800`), regardless of the address sent
-   - Address XOR checksum is received but ignored
-
-5. **No standard library**
+4. **No standard library**
    - `memcpy`, `memset`, `sprintf`, `malloc` etc. are **not available**
 
-6. **Watchdog**
+5. **Watchdog**
    - FWDGT is used for prevent firmware stacking (reset via `Reset_Handler`)
 
 ## Project Structure

@@ -17,14 +17,19 @@
 
 /* Bootloader config if use gpio comment BL_USE_MAGICWORD */
 #define BL_USE_MAGICWORD
+#define BL_CHECK_EEPROM
 #define BL_GPIO_PORT GPIOA
 #define BL_GPIO_PIN GPIO_PIN_0
 
 /* Memory configuration */
-#define APP_START_ADDR 0x08000800UL /* Application starts after 2KB bootloader */
+//#define APP_START_ADDR 0x08000800UL /* Application starts after 2KB bootloader */
+#define APP_START_ADDR 0x08001000UL /* Application starts after 4KB bootloader (need for for RDP lvl low) */
 #define FLASH_PAGE_SIZE 2048        /* GD32F303 flash page size */
 #define FLASH_TOTAL_PAGES 64        /* 128KB total flash = 64 pages */
 #define MAX_WRITE_SIZE 256          /* Maximum data block size (protocol allows up to 256) */
+
+#define EEPROM_START_ADDR 0x0801FC00UL /* addres for check EEPROM init flag */
+#define EEPROM_MAGIC ((uint16_t)0xAA55)
 
 /* CAN constants */
 #define CAN_HOST_ID 0x03
@@ -36,8 +41,8 @@
 #define NACK_BYTE 0x1F
 
 /* Device PID */
-#define PID_MSB 0x04
-#define PID_LSB 0x42
+#define PID_MSB 0x0A
+#define PID_LSB 0x21
 
 /* Command codes */
 #define CMD_GET 0x00
@@ -70,7 +75,7 @@ typedef enum can_baud_e can_baud_t;
  */
 void bootloader_run(void);
 
-void jump2app(void);
+void jump2app(uint32_t addr);
 
 static inline void flash_lock(void)
 {

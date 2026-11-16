@@ -15,7 +15,7 @@ can_receive_message_struct rx_msg;
 /* Simple inline functions */
 static inline void send_byte(uint8_t data)
 {
-    while (can_flag_get(CAN0, CAN_FLAG_TS) == SET)
+    while (can_flag_get(CAN0, CAN_FLAG_TME0) == RESET)
         ;
     tx_msg.tx_sfid = CAN_TARGET_ID;
     tx_msg.tx_ff = CAN_FF_STANDARD;
@@ -112,9 +112,9 @@ static inline void can_networking_init(can_baud_t can_baud)
     can_filter.filter_bits = CAN_FILTERBITS_16BIT;
 
     can_filter.filter_list_high = CAN_HOST_ID << 5;
-    can_filter.filter_list_low = 0;
-    can_filter.filter_mask_high = 0;
-    can_filter.filter_mask_low = 0;
+    can_filter.filter_list_low = CAN_HOST_ID << 5;
+    can_filter.filter_mask_high = CAN_HOST_ID << 5;
+    can_filter.filter_mask_low = CAN_HOST_ID << 5;
 
     can_filter.filter_fifo_number = CAN_FIFO1;
     can_filter.filter_enable = ENABLE;
@@ -129,8 +129,8 @@ static inline void can_networking_init(can_baud_t can_baud)
 
 /**
  * @brief confiure FWDGT counter clock: 40KHz(IRC40K) / 64 = 156.25 Hz
- * Max timeout 26.2s
- * 
+ * Max timeout 13.1s
+ *
  * @param cval 0...0xfff - timeout value
  */
 static inline void fwdg_init(uint32_t cval)
@@ -327,36 +327,62 @@ static void handle_erase_memory(void)
     }
 }
 
-void jump2app(void)
+void jump2app(uint32_t addr)
 {
+    uint32_t sp;
+    uint32_t pc;
+
+    /* basic validation: word-aligned address inside the 128K flash */
+    if ((addr & 0x3UL) != 0UL)
+        return;
+    if (addr < 0x08000000UL || addr >= 0x08020000UL)
+        return;
+
+    sp = *(volatile uint32_t *)addr;
+    pc = *(volatile uint32_t *)(addr + 4UL);
+
+    if (pc == 0UL || pc == 0xFFFFFFFFUL)
+        return;
+
     __disable_irq();
-    SCB->VTOR = APP_START_ADDR;
-    uint32_t sp = *(volatile uint32_t *)APP_START_ADDR;
-    uint32_t pc = *(volatile uint32_t *)(APP_START_ADDR + 4);
+
+    SCB->VTOR = addr;
+    __DSB();
+    __ISB();
+
     __set_MSP(sp);
+
     ((void (*)(void))pc)();
+
+    for (;;)
+    {
+    }
 }
 
 /**
- * Handle Go command (0x21) - SIMPLE VERSION. always jumps to APP_START_ADDR
+ * Handle Go command (0x21) - jumps to the address sent by the host
  */
 static void handle_go(void)
 {
     uint32_t i;
-    /* 4x address + xor */
-    for (i = 0; i < 5; i++)
+    addr_t addr;
+    /* Get address (big-endian) */
+    for (i = 0; i < 4; i++)
+        addr.byte[3U - i] = receive_byte();
+
+    if (xor_checksum(addr.byte, 4) != receive_byte())
     {
-        receive_byte();
+        send_byte(NACK_BYTE);
+        return;
     }
-    /* send ACK */
+    /* if xor ok - ack */
     send_byte(ACK_BYTE);
+    
     /* delay for jump2app */
-    for (i = 255U; i != 0U; i--)
-    {
-        __NOP();
-    }
+    while (can_flag_get(CAN0, CAN_FLAG_TME0) == RESET)
+        ;
     /* Jump to application */
-    jump2app();
+    jump2app(addr.word);
 }
 
 /**

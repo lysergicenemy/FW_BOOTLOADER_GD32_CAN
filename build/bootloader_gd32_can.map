@@ -1,10 +1,10 @@
 
 Discarded input sections
 
- .data          0x00000000        0x0 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
- .text          0x00000000        0x0 build/startup_minimal.o
- .data          0x00000000        0x0 build/startup_minimal.o
- .bss           0x00000000        0x0 build/startup_minimal.o
+ .data          0x00000000        0x0 C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
+ .text          0x00000000        0x0 build/startup_minimal_f3.o
+ .data          0x00000000        0x0 build/startup_minimal_f3.o
+ .bss           0x00000000        0x0 build/startup_minimal_f3.o
 
 Memory Configuration
 
@@ -16,93 +16,93 @@ RAM              0x20000000         0x00008000         xrw
 Linker script and memory map
 
 LOAD build/main.o
-LOAD C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+LOAD C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
 LOAD build/bootloader.o
 LOAD build/gd32f30x_can.o
 LOAD build/gd32f30x_gpio.o
 LOAD build/gd32f30x_rcu.o
-LOAD build/startup_minimal.o
+LOAD build/startup_minimal_f3.o
                 0x00000400                        _Min_Stack_Size = 0x400
                 0x20008000                        _estack = 0x20008000
 
 .isr_vector     0x08000000       0x40
                 0x08000000                        . = ALIGN (0x4)
  *(.isr_vector)
- .isr_vector    0x08000000       0x40 build/startup_minimal.o
+ .isr_vector    0x08000000       0x40 build/startup_minimal_f3.o
                 0x08000000                g_pfnVectors
                 0x08000040                        . = ALIGN (0x4)
 
-.text           0x08000040      0x6ec
+.text           0x08000040      0x74c
                 0x08000040                        . = ALIGN (0x4)
  *(.text)
- .text          0x08000040      0x2b0 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ .text          0x08000040      0x2b8 C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
  *(.text*)
- .text.startup  0x080002f0      0x434 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
-                0x080002f0                main
+ .text.startup  0x080002f8      0x48c C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
+                0x080002f8                main
  .text.Reset_Handler
-                0x08000724        0x6 build/startup_minimal.o
-                0x08000724                Reset_Handler
+                0x08000784        0x6 build/startup_minimal_f3.o
+                0x08000784                Reset_Handler
  .text.Default_Handler
-                0x0800072a        0x2 build/startup_minimal.o
-                0x0800072a                Default_Handler
+                0x0800078a        0x2 build/startup_minimal_f3.o
+                0x0800078a                Default_Handler
  *(.rodata)
  *(.rodata*)
  *(.glue_7)
- .glue_7        0x0800072c        0x0 linker stubs
+ .glue_7        0x0800078c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0800072c        0x0 linker stubs
+ .glue_7t       0x0800078c        0x0 linker stubs
  *(.init)
  *(.fini)
-                0x0800072c                        . = ALIGN (0x4)
-                0x0800072c                        _etext = .
+                0x0800078c                        . = ALIGN (0x4)
+                0x0800078c                        _etext = .
 
-.vfp11_veneer   0x0800072c        0x0
- .vfp11_veneer  0x0800072c        0x0 linker stubs
+.vfp11_veneer   0x0800078c        0x0
+ .vfp11_veneer  0x0800078c        0x0 linker stubs
 
-.v4_bx          0x0800072c        0x0
- .v4_bx         0x0800072c        0x0 linker stubs
+.v4_bx          0x0800078c        0x0
+ .v4_bx         0x0800078c        0x0 linker stubs
 
-.iplt           0x0800072c        0x0
- .iplt          0x0800072c        0x0 build/startup_minimal.o
+.iplt           0x0800078c        0x0
+ .iplt          0x0800078c        0x0 build/startup_minimal_f3.o
 
-.rel.dyn        0x0800072c        0x0
- .rel.iplt      0x0800072c        0x0 build/startup_minimal.o
+.rel.dyn        0x0800078c        0x0
+ .rel.iplt      0x0800078c        0x0 build/startup_minimal_f3.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x0800072c        0x0
-                0x0800072c                        __exidx_start = .
+.ARM            0x0800078c        0x0
+                0x0800078c                        __exidx_start = .
  *(.ARM.exidx*)
-                0x0800072c                        __exidx_end = .
+                0x0800078c                        __exidx_end = .
 
 .ARM.attributes
-                0x0800072c       0x2a
+                0x0800078c       0x2a
  *(.ARM.attributes)
  .ARM.attributes
-                0x0800072c       0x2c C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+                0x0800078c       0x2c C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
  .ARM.attributes
-                0x08000758       0x21 build/startup_minimal.o
+                0x080007b8       0x21 build/startup_minimal_f3.o
 
-.preinit_array  0x0800072c        0x0
+.preinit_array  0x0800078c        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0800072c        0x0
+.init_array     0x0800078c        0x0
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0800072c        0x0
+.fini_array     0x0800078c        0x0
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x08000779                        _sidata = .
+                0x080007d9                        _sidata = .
 
-.data           0x20000000        0x0 load address 0x08000779
+.data           0x20000000        0x0 load address 0x080007d9
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -111,14 +111,14 @@ LOAD build/startup_minimal.o
                 0x20000000                        _edata = .
 
 .igot.plt       0x20000000        0x0
- .igot.plt      0x20000000        0x0 build/startup_minimal.o
+ .igot.plt      0x20000000        0x0 build/startup_minimal_f3.o
                 0x20000000                        . = ALIGN (0x4)
 
 .bss            0x20000000       0x28
                 0x20000000                        _sbss = .
                 0x20000000                        __bss_start__ = _sbss
  *(.bss)
- .bss           0x20000000       0x28 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ .bss           0x20000000       0x28 C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
  *(.bss*)
  *(COMMON)
                 0x20000028                        . = ALIGN (0x4)
@@ -145,15 +145,15 @@ LOAD D:/toolchain/arm_gcc/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp\l
 LOAD D:/toolchain/arm_gcc/bin/../lib/gcc/arm-none-eabi/13.2.1/thumb/v7e-m/nofp\libgcc.a
 
 .comment        0x00000000       0x44
- .comment       0x00000000       0x44 C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+ .comment       0x00000000       0x44 C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
                                  0x45 (size before relaxing)
 
 Cross Reference Table
 
 Symbol                                            File
-Default_Handler                                   build/startup_minimal.o
-Reset_Handler                                     build/startup_minimal.o
-_estack                                           build/startup_minimal.o
+Default_Handler                                   build/startup_minimal_f3.o
+Reset_Handler                                     build/startup_minimal_f3.o
+_estack                                           build/startup_minimal_f3.o
 bootloader_run                                    build/bootloader.o (symbol from plugin)
                                                   build/main.o (symbol from plugin)
 can1_filter_start_bank                            build/gd32f30x_can.o (symbol from plugin)
@@ -190,7 +190,7 @@ can_transmit_states                               build/gd32f30x_can.o (symbol f
 can_wakeup                                        build/gd32f30x_can.o (symbol from plugin)
 can_working_mode_set                              build/gd32f30x_can.o (symbol from plugin)
 dbg_periph_enable                                 build/gd32f30x_can.o (symbol from plugin)
-g_pfnVectors                                      build/startup_minimal.o
+g_pfnVectors                                      build/startup_minimal_f3.o
 gpio_afio_deinit                                  build/gd32f30x_gpio.o (symbol from plugin)
 gpio_bit_reset                                    build/gd32f30x_gpio.o (symbol from plugin)
 gpio_bit_set                                      build/gd32f30x_gpio.o (symbol from plugin)
@@ -213,9 +213,9 @@ gpio_pin_remap_config                             build/gd32f30x_gpio.o (symbol 
 gpio_port_write                                   build/gd32f30x_gpio.o (symbol from plugin)
 jump2app                                          build/bootloader.o (symbol from plugin)
                                                   build/main.o (symbol from plugin)
-main                                              C:\Users\user\AppData\Local\Temp\ccTaCzDy.ltrans0.ltrans.o
+main                                              C:\Users\user\AppData\Local\Temp\cconPTjH.ltrans0.ltrans.o
                                                   build/main.o (symbol from plugin)
-                                                  build/startup_minimal.o
+                                                  build/startup_minimal_f3.o
 rcu_adc_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
 rcu_ahb_clock_config                              build/gd32f30x_rcu.o (symbol from plugin)
 rcu_all_reset_flag_clear                          build/gd32f30x_rcu.o (symbol from plugin)

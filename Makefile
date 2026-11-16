@@ -27,7 +27,7 @@ Drivers/GD32F30x_standard_peripheral/Source/gd32f30x_rcu.c \
 
 # ASM sources
 ASM_SOURCES =  \
-startup_minimal.s
+startup_minimal_f3.s
 
 #######################################
 # binaries

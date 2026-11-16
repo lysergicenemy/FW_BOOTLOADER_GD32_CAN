@@ -2,15 +2,14 @@
  * CAN bus bootloader for GD32F30x
  * Size target: 1 flash page (2048 bytes)
  * Uses backup registers for magic word or GPIO state
- * Used FWDG (reset at any receive msg) for prevent 
+ * Used FWDG (reset at any receive msg) for prevent
  * firmware stacking
  */
 
 #include "gd32f30x.h"
 #include "bootloader.h"
 
-
-#define MAGIC_WORD 0x424C454EUL     /* ASCII: 'BLEN' */
+#define MAGIC_WORD 0x424C454EUL /* ASCII: 'BLEN' */
 
 /* Minimal clock initialization */
 static inline void clock_init(void)
@@ -21,8 +20,9 @@ static inline void clock_init(void)
 
     volatile uint32_t i;
     RCU_CFG0 |= RCU_AHB_CKSYS_DIV2;
-    for(i=0;i<20000;i++);
-    
+    for (i = 0; i < 20000; i++)
+        ;
+
     RCU_CFG0 &= ~RCU_CFG0_SCS;
 
     /* reset HXTALEN, CKMEN and PLLEN bits */
@@ -32,43 +32,46 @@ static inline void clock_init(void)
 
     /* reset HXTALBPS bit */
     RCU_CTL &= ~(RCU_CTL_HXTALBPS);
-    
+
     /* Reset CFG0 and CFG1 registers */
     RCU_CFG0 = 0x00000000U;
     RCU_CFG1 = 0x00000000U;
 
     uint32_t timeout = 0U;
     uint32_t stab_flag = 0U;
-    
+
     /* enable IRC8M */
     RCU_CTL |= RCU_CTL_IRC8MEN;
-    
+
     /* wait until IRC8M is stable or the startup time is longer than IRC8M_STARTUP_TIMEOUT */
-    do{
+    do
+    {
         timeout++;
         stab_flag = (RCU_CTL & RCU_CTL_IRC8MSTB);
-    }
-    while((0U == stab_flag) && (IRC8M_STARTUP_TIMEOUT != timeout));
-    
+    } while ((0U == stab_flag) && (IRC8M_STARTUP_TIMEOUT != timeout));
+
     /* if fail */
-    if(0U == (RCU_CTL & RCU_CTL_IRC8MSTB)){
-        while(1){
+    if (0U == (RCU_CTL & RCU_CTL_IRC8MSTB))
+    {
+        while (1)
+        {
         }
     }
-    
+
     /* AHB = SYSCLK */
     RCU_CFG0 |= RCU_AHB_CKSYS_DIV1;
     /* APB2 = AHB/1 */
     RCU_CFG0 |= RCU_APB2_CKAHB_DIV1;
     /* APB1 = AHB/2 */
     RCU_CFG0 |= RCU_APB1_CKAHB_DIV2;
-    
+
     /* select IRC8M as system clock */
     RCU_CFG0 &= ~RCU_CFG0_SCS;
     RCU_CFG0 |= RCU_CKSYSSRC_IRC8M;
-    
+
     /* wait until IRC8M is selected as system clock */
-    while(0U != (RCU_CFG0 & RCU_SCSS_IRC8M)){
+    while (0U != (RCU_CFG0 & RCU_SCSS_IRC8M))
+    {
     }
 
     /* Enable backup domain */
@@ -93,17 +96,22 @@ int main(void)
     clock_init();
 
 #ifdef BL_USE_MAGICWORD
+#ifdef BL_CHECK_EEPROM
+    if (((BKP_DATA_GET(BKP_DATA0) | BKP_DATA_GET(BKP_DATA1) << 16) != MAGIC_WORD) && (*(volatile uint16_t *)EEPROM_START_ADDR == EEPROM_MAGIC))
+    /* Magic word is not correct AND flash is initialized - jump to application */
+#else
     if ((BKP_DATA_GET(BKP_DATA0) | BKP_DATA_GET(BKP_DATA1) << 16) != MAGIC_WORD)
     /* Magic word is not correct - jump to application */
+#endif
 #else
     if ((!GPIO_ISTAT(BL_GPIO_PORT) & (BL_GPIO_PIN)))
     /* GPIO is LOW state - jump to application */
 #endif
     {
-        jump2app();
+        jump2app(APP_START_ADDR);
     }
 
-    /* Magic word is set - stay in bootloader */
+    /* Magic word is set or flash is NOT initialized - stay in bootloader */
     /* Clear magic word to indicate we're in bootloader */
     write_magic_word(0U);
 

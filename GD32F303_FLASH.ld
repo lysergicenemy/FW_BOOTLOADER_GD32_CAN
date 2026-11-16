@@ -4,7 +4,7 @@ ENTRY(Reset_Handler)
 _Min_Stack_Size = 0x400;
 
 /* Highest address of the user mode stack */
-_estack = 0x20000000 + 32K;
+_estack = ORIGIN(RAM) + LENGTH(RAM);
 
 /* Specify the memory areas */
 MEMORY
